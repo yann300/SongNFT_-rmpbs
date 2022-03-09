@@ -1,0 +1,7 @@
+.songNFTList_container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin: 20px;
+    justify-content: center;
+}

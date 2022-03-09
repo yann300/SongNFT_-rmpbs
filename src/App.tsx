@@ -1,25 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+
+import Header from './components/Header/Header';
+import Playlist from './components/Playlist/Playlist'
+import NotFound from './components/404/404'
+import SongNFTList from './components/SongsNFTList/SongNFTList'
+import AddToPlaylist from './components/AddPlayList/AddToPlayList'
+import DropRepToken from './components/DropRepToken/DropRepToken'
+
+import MintSong from './components/MintSong/MintSont';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header/>
+      <Routes>
+        <Route path="/" element={ <Playlist/> } />
+        <Route path="/playlist" element={ <Playlist/> } />
+        <Route path="/mintsong" element={ <MintSong/> } />
+        <Route path="/songnftlist" element={ <SongNFTList /> } />
+        <Route path="/addtoplaylist" element={ <AddToPlaylist /> } />
+        <Route path="/dropreptoken" element={ <DropRepToken /> } />
+        <Route path="*" element={ <NotFound/> } />
+      </Routes>
+    </Router>
+    
   );
 }
 
