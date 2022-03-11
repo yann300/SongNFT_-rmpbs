@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -8,30 +8,41 @@ import Song from '../Song/Song'
 import Container from '@mui/material/Container';
 import Fab from '@mui/material/Fab';
 import LibraryMusicOutlinedIcon from '@mui/icons-material/LibraryMusicOutlined';
+import { useEffect } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-
+import {  playlistTokenContract } from '../../contracts/contract'
 import './Playlist.css';
 
 const Playlist = () => {
-    const getPlaylist = () => {
-        return ''
-    }
+    const [songs, setSongs] = useState<Array<any>>([])
+    const [name, setName] = useState<string>('')
+    const playlistId = 0
+    useEffect(() => {
+        (async () => {
+            const playlist = await playlistTokenContract.playlists(playlistId)
+            const songs = await playlistTokenContract.getAllSongsInLeaderboard(playlistId)
+            const songsInfo = []
+            for (const song in songs) {
+                songsInfo.push(await playlistTokenContract.viewSong(playlistId, song))
+            }
+            setSongs(songsInfo)
+            setName(playlist.name)
+        })()
+    }, [])
 
     return (
         <Container maxWidth="lg">
         <div className="playlist">
 
             <div className="playlist_left">
-                <div className="playlist_name"> Playlist Name</div>
+                <div className="playlist_name">{name}</div>
 
                 <div className="playlist_image"> 
                     <img src="./images/playlist.gif" alt="Playlist Image"/>
                 </div>
 
                 <div> 
-                    <Song artist="Cloverdale Pomo" songId={1}/>
-                    <Song artist="Tohono O'odham" songId={2}/>
-                    <Song artist="Cloverdale Pomo" songId={3}/>
+                    {songs.map((song) => <Song song={song} playlistId={playlistId} /> )}
                     <MoreHorizIcon />
                 </div>
             </div>

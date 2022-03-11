@@ -17,6 +17,8 @@
     "@types/react-router-dom": "^5.3.3",
     "@walletconnect/web3-provider": "^1.7.4",
     "@web3-react/core": "^6.1.9",
+    "ethereum-abi-types-generator": "^1.3.2",
+    "ethers": "^5.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.2",
@@ -30,7 +32,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate-playlist-token-type": "abi-types-generator --provider=ethers_v5 './src/contracts/types/playlisttoken-abi.json' --output='./src/contracts/types/'",
+    "generate-song-token-type": "abi-types-generator --provider=ethers_v5 './src/contracts/types/songtoken-abi.json' --output='./src/contracts/types/'"
   },
   "eslintConfig": {
     "extends": [
